@@ -1,0 +1,28 @@
+/* 右クリック時コンテキストメニューCSS */
+ul#contextMenu{
+	list-style:none;
+	position:absolute;
+	display:flex;
+	flex-direction:column;
+	background-color:#ffffff;
+	padding:0;
+}
+ul#contextMenu li{
+	list-style:none;
+	background-color:#ffffff;
+	padding:4px 8px;
+	font-size:0.8em;
+	width:100%;
+	outline:solid 1px #6c6c6c;
+}
+ul#contextMenu li:hover{
+	cursor:pointer;
+	opacity:0.7;
+}
+
+
+/* 範囲選択時動作用CSS */
+td.copyTarget{
+	outline:solid 2px red;
+	outline-offset:-2px;
+}

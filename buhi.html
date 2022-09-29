@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+		<script>
+		</script>
+		<style>
+		.table-container	{
+			overflow-y: scroll;
+			height: 500px;
+		}
+
+		.table{
+			width:4060px;
+		}
+
+		.table > :not(caption) > * > * {
+			padding: 0.1rem 0.1rem;
+		}
+		.table-container tr:first-child th{
+			position: sticky;
+			position: -webkit-sticky;
+			top: 0;
+			left: 0;
+			z-index: 1;
+			background-color: white;
+		}
+		.table-container tr:nth-child(2)  th{
+			position: sticky;
+			position: -webkit-sticky;
+			top: 26px;
+			left: 0;
+			z-index: 1;
+			background-color: white;
+		}
+
+		thead th {
+			resize: horizontal;
+			overflow: hidden;
+		}
+		.nomal_tag	{
+			background-color:#939598 !important;
+		}
+		</style>
+	</head>
+	<body autocomplete="off">
+		<form id="FORM" name="FORM">
+			<!-- -- hidden ---->
+			<input type="hidden" id="選択住所" name="選択住所">
+			<input type="hidden" id="削除_999999" name="削除_999999">
+			<div class="container-fluid header border-bottm">
+				<div class="d-flex justify-content-between row">
+					<div class="col-sm-2 col-2">
+						<h2 class="float-left mr-2 mb-0">ACIMS</h2>
+					</div>
+					<div class="d-flex align-items-center justify-content-end col-sm-10 col-10">
+						<div class="float-right d-flex justify-content-center nav-item">
+							<span class="mt-2">###USERNAME###</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="sidebar d-none">
+				<ul class="list-unstyled ps-0">
+					<li class="mb-1">
+						<button type="button" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-light">
+							　メインメニュー
+						</button>
+					</li>
+					<li class="mb-1">
+						<details>
+							<summary class="btn btn-toggle align-items-center rounded border-0 text-light text-sm-start">
+								　契約
+							</summary>
+							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+							</ul>
+						</details>
+					</li>
+					<li class="mb-1">
+						<details>
+							<summary class="btn btn-toggle align-items-center rounded border-0 text-light text-sm-start">
+								　帳票
+							</summary>
+							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+							</ul>									
+						</details>
+					</li>
+					<li class="mb-1">
+						<details>
+							<summary class="btn btn-toggle align-items-left rounded border-0 text-light text-sm-start">
+								　管理
+							</summary>	
+							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+							</ul>
+						</details>
+					</li>
+				</ul>
+			</div>
+			<div class="main2">
+				<div class="container-fluid search-containery border-bottom">
+					<details id="search_form">
+						<summary>
+							<div class="row">
+								<h4 class="mt-3 fw-bold">　店舗マスタ</h4>
+							</div>
+						</summary>
+						<div class="row">
+							<div class="col-xl-9">
+								<div class="row">
+									<div class="col-sm-3 bg-blue ms-4">
+										<label class="mt-2 text-light" for="会社検索">
+											会社
+										</label>
+									</div>
+									<div class="col-sm-2 border bg-white">
+										<select class="form-control p-0 h-100" id="会社検索" name="会社検索" onchange="chengeCompany()">
+											<!-- ###会社検索### -->
+											<option value="%1">%2</option>
+											<!-- ###会社検索### -->
+											<option value="_">ALL</option>
+										</select>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-3 bg-blue ms-4">
+										<label class="mt-2 text-light" for="店舗">
+											店舗(開始)
+											<input class="sansho-btn bg-secondary ms-2 text-light" type="button" id="店舗開始検索" name="店舗開始検索" value="検索" onclick="openTenpoIchiran(&#39;../../COMMON/CGI/TENPO_LIST.CGI&#39;,&#39;FORM&#39;,&#39;店舗コード検索開始&#39;,&#39;店舗名検索開始&#39;);">
+										</label>
+									</div>
+									<div class="col-sm-2 border bg-white">
+										<input class="form-control p-0 h-100" type="text" id="店舗コード検索開始" name="店舗コード検索開始" onchange="getTenponame(this.value,&#39;店舗名検索開始&#39;);">
+									</div>
+									<div class="col-sm-2 border bg-white">
+										<input class="form-control p-0 h-100" type="text" id="店舗名検索開始" name="店舗名検索開始" onchange="searchList()" readonly="">
+									</div>
+								</div>
+								<div class="row mb-2">
+									<div class="col-sm-3 bg-blue ms-4">
+										<label class="mt-2 text-light" for="店舗">
+											店舗(終了)
+											<input class="sansho-btn bg-secondary ms-2 text-light" type="button" id="店舗終了検索" name="店舗終了検索" value="検索" onclick="openTenpoIchiran(&#39;../../COMMON/CGI/TENPO_LIST.CGI&#39;,&#39;FORM&#39;,&#39;店舗コード検索終了&#39;,&#39;店舗名検索終了&#39;);">
+										</label>
+									</div>
+									<div class="col-sm-2 border bg-white">
+										<input class="form-control p-0 h-100" type="text" id="店舗コード検索終了" name="店舗コード検索終了" onchange="getTenponame(this.value,&#39;店舗名検索終了&#39;);">
+									</div>
+									<div class="col-sm-2 border bg-white">
+										<input class="form-control p-0 h-100" type="text" id="店舗名検索終了" name="店舗名検索終了" readonly="">
+									</div>
+									<div class="col-sm-1">
+										<input class="btn btn-blue p-1 h-100 w-100" type="button" id="検索" name="検索" value="データ表示" onclick="searchList()">
+									</div>
+									<div class="col-sm-1">
+										<input class="btn btn-blue p-1 h-100 w-100" type="button" id="ダウンロード" name="ダウンロード" value="ダウンロード">
+									</div>
+									<div class="col-sm-1">
+										<input class="btn btn-blue p-1 h-100 w-100" type="button" id="登録" name="登録" value="登録" onclick="postSend()">
+									</div>
+								</div>
+							</div>
+						</div>
+					</details>
+				</div>
+				<div class="table-container ms-4">
+					<table class="table table-hover d-block table-bordered">
+						<colgroup>
+							<col style="width:90px">
+							<col style="width:110px">
+							<col style="width:90px">
+							<col style="width:160px">
+							<col style="width:120px">
+							<col style="width:250px">
+							<col style="width:115px">
+							<col style="width:95px">
+							<col style="width:110px">
+							<col style="width:400px">
+							<col style="width:300px">
+							<col style="width:150px">
+							<col style="width:200px">
+							<col style="width:130px">
+							<col style="width:100px">
+							<col style="width:200px">
+							<col style="width:130px">
+							<col style="width:130px">
+							<col style="width:200px">
+							<col style="width:200px">
+							<col style="width:250px">
+							<col style="width:100px">
+							<col style="width:300px">
+							<col style="width:115px">
+							<col style="width:115px">
+							<col style="width:50px">
+						</colgroup>
+						<thead>
+							<tr>
+								<th rowspan="2" class="nomal_tag">会社</th>
+								<th rowspan="2" class="nomal_tag">業態</th>
+								<th colspan="5" class="nomal_tag">店舗</th>
+								<th colspan="5" class="nomal_tag">物件住所</th>
+								<th colspan="3" class="nomal_tag">契約フォルダ</th>
+								<th colspan="3" class="nomal_tag">店舗状態フォルダ</th>
+								<th rowspan="2" class="nomal_tag">契約形態</th>
+								<th rowspan="2" class="nomal_tag">店舗タイプ</th>
+								<th rowspan="2" class="nomal_tag">店舗形態</th>
+								<th rowspan="2" class="nomal_tag">売場坪数</th>
+								<th rowspan="2" class="nomal_tag">摘要</th>
+								<th rowspan="2" class="nomal_tag">閉店日</th>
+								<th rowspan="2" class="nomal_tag">解約日</th>
+								<th rowspan="2" class="nomal_tag">削除</th>
+							</tr>
+							<tr>
+								<th class="nomal_tag">店舗コード</th>
+								<th class="nomal_tag">使用状態</th>
+								<th class="nomal_tag">会計部門コード</th>
+								<th class="nomal_tag">店舗名</th>
+								<th class="nomal_tag">OPEN日</th>
+								<th class="nomal_tag">都道府県名</th>
+								<th class="nomal_tag">郵便番号</th>
+								<th class="nomal_tag">住所1</th>
+								<th class="nomal_tag">住所2</th>
+								<th class="nomal_tag">電話番号</th>
+								<th class="nomal_tag">使用状態</th>
+								<th class="nomal_tag">都道府県</th>
+								<th class="nomal_tag">店舗コード</th>
+								<th class="nomal_tag">使用状態</th>
+								<th class="nomal_tag">都道府県</th>
+								<th class="nomal_tag">店舗コード</th>
+							</tr>
+						</thead>
+						<tbody id="tbody">
+							<!-- 検索テーブルA -->
+							<input type="hidden" id="選択行ID" name="選択行ID" value="false">
+							<!-- ###店舗情報### -->
+							<tr id="選択行_%1" name="テーブル行" onclick="selectRow(&#39;%1&#39;)">
+								<td>
+									<input type="hidden" id="NO_%1" name="NO_%1" value="%1">
+									<input type="hidden" id="ID_%1" name="ID_%1" value="%2">
+									<input type="hidden" id="会社選択_%1" name="会社選択" value="%3">
+									<select class="form-control p-0 table_input" type="text" id="会社_%1" name="会社_%1">
+										<option value="_"></option>
+										<!-- ###会社リスト### -->
+										<option value="%1">%2</option>
+										<!-- ###会社リスト### -->
+									</select>
+									<div id="会社_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="業態_%1" name="業態_%1" list="業態リスト" value="%4">
+									<datalist id="業態リスト">
+										<!-- ###業態リスト### -->
+										<option>%1</option>
+										<!-- ###業態リスト### -->
+									</datalist>
+									<div id="業態_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="店舗コード_%1" name="店舗コード_%1" value="%5">
+									<div id="店舗コード_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="使用状態_%1" name="使用状態_%1" list="使用状態リスト" value="%6">
+									<datalist id="使用状態リスト">
+										<!-- ###使用状態リスト### -->
+										<option>%1</option>
+										<!-- ###使用状態リスト### -->
+									</datalist>
+									<div id="使用状態_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="会計部門コード_%1" name="会計部門コード_%1" value="%7">
+									<div id="会計部門コード_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="店舗名_%1" name="店舗名_%1" value="%8">
+									<div id="店舗名_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="OPEN日_%1" name="OPEN日_%1" value="%9" onchange="changeYmd(this.value,this.id);">
+									<div id="OPEN日_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="都道府県_%1" name="都道府県_%1" value="%10">
+									<div id="都道府県名_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="郵便番号_%1" name="郵便番号_%1" value="%11" onchange="changeYubin(this.value,this.id)">
+									<div id="郵便番号_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<div class="d-flex">
+										<button type="button" class="btn mx-1 p-0 table_input w-5" id="郵便番号検索_%1" name="郵便番号検索_%1" onclick="getPostCode(&#39;%1&#39;);">
+										</button>
+										<input class="form-control p-0 table_input" type="text" id="住所1_%1" name="住所1_%1" value="%12" onchange="changeJyusho(this.value,this.id)">
+									</div>
+									<div id="住所1_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="住所2_%1" name="住所2_%1" value="%13" onchange="changeJyusho(this.value,this.id)">
+									<div id="住所2_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="電話番号_%1" name="電話番号_%1" value="%14">
+									<div id="電話番号_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="契約先フォルダ使用状態_%1" name="契約先フォルダ使用状態_%1" value="%15">
+									<div id="契約先フォルダ使用状態_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="契約先フォルダ都道府県_%1" name="契約先フォルダ都道府県_%1" value="%16">
+									<div id="契約先フォルダ都道府県_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="契約先フォルダ店舗コード_%1" name="契約先フォルダ店舗コード_%1" value="%17">
+									<div id="契約先フォルダ店舗コード_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="店舗情報フォルダ使用状態_%1" name="店舗情報フォルダ使用状態_%1" value="%18">
+									<div id="店舗情報フォルダ使用状態_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="店舗情報フォルダ都道府県_%1" name="店舗情報フォルダ都道府県_%1" value="%19">
+									<div id="店舗情報フォルダ都道府県_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="店舗情報フォルダ店舗コード_%1" name="店舗情報フォルダ店舗コード_%1" value="%20">
+									<div id="店舗情報フォルダ店舗コード_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="契約形態_%1" name="契約形態_%1" value="%21">
+									<div id="契約形態_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="店舗タイプ_%1" name="店舗タイプ_%1" value="%22" list="店舗タイプリスト">
+									<datalist id="店舗タイプリスト">
+										<!-- ###店舗タイプリスト### -->
+										<option value="%1"></option>
+										<!-- ###店舗タイプリスト### -->
+									</datalist>
+									<div id="店舗タイプ_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="店舗形態_%1" name="店舗形態_%1" list="店舗形態リスト" value="%23">
+									<datalist id="店舗形態リスト">
+										<!-- ###店舗形態リスト### -->
+										<option>%1</option>
+										<!-- ###店舗形態リスト### -->
+									</datalist>
+									<div id="店舗形態_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="売場坪数_%1" name="売場坪数_%1" value="%24">
+									<div id="売場坪数_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="摘要_%1" name="摘要_%1" value="%25">
+									<div id="摘要_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="閉店日_%1" name="閉店日_%1" value="%26" onchange="changeYmd(this.value,this.id);">
+									<div id="閉店日_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td>
+									<input class="form-control p-0 table_input" type="text" id="解約日_%1" name="解約日_%1" value="%27" onchange="changeYmd(this.value,this.id);">
+									<div id="解約日_%1_ERROR" class="text-error"></div>
+								</td>			
+								<td class="text-center">
+									<input class="form-check-input mt-1" type="checkbox" id="削除_%1" name="削除_%1">
+								</td>			
+							</tr>
+							<!-- ###店舗情報### -->
+							<!-- 検索テーブルB -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</form>
+
+
+
+	</body></html>
