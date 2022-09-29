@@ -1,6 +1,6 @@
 /* 右クリック時コンテキストメニューCSS */
 ul#contextMenu{
-	list-style:none;
+	list-style:default;
 	position:absolute;
 	display:flex;
 	flex-direction:column;
